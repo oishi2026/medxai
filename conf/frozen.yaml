@@ -4,8 +4,8 @@
 
 # ---- A. Binding decisions (resolve in Week 1; replace TODO) -----------------
 decisions:
-  chest_pairing: TODO        # "chexpert_chexlocalize" (recommended) | "nih_bbox"
-  chexpert_uncertain_policy: TODO   # "u_zeros" | "u_ones" | "per_class"  (only if chexpert)
+  chest_pairing: chexpert_chexlocalize        # "chexpert_chexlocalize" (recommended) | "nih_bbox"
+  chexpert_uncertain_policy: u_zeros   # "u_zeros" | "u_ones" | "per_class"  (only if chexpert)
   scored_classes_chest: []   # TODO: final per-pathology list used for IoU/pointing/H1
   scored_classes_derm: ["melanoma"]
   faithfulness_target: "true_positive_present_class"  # what we explain & score
