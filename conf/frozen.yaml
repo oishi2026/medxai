@@ -1,0 +1,42 @@
+# frozen.yaml — THE single source of binding decisions.
+# Editing this after Week 1 is a project-level event and requires a reviewed PR.
+# Every reported number must be produced under exactly these settings.
+
+# ---- A. Binding decisions (resolve in Week 1; replace TODO) -----------------
+decisions:
+  chest_pairing: TODO        # "chexpert_chexlocalize" (recommended) | "nih_bbox"
+  chexpert_uncertain_policy: TODO   # "u_zeros" | "u_ones" | "per_class"  (only if chexpert)
+  scored_classes_chest: []   # TODO: final per-pathology list used for IoU/pointing/H1
+  scored_classes_derm: ["melanoma"]
+  faithfulness_target: "true_positive_present_class"  # what we explain & score
+  primary_platform: "kaggle"
+
+# ---- B. Frozen parameters (do not vary by method) --------------------------
+seeds: [0, 1, 2, 3, 4]       # drop to [0,1,2] only if quota forces it
+
+input_resolution:
+  chest: 320                 # localization benefits from resolution; cut to 256 if quota tight
+  derm: 256
+
+backbone:
+  chest: "resnet50"
+  derm: "efficientnet_b3"
+  node_feature_layer: "layer3"   # finer grid than layer4 → better superpixel alignment
+
+superpixels:                 # SAME partition for CNN-saliency aggregation AND GNN nodes
+  algorithm: "slic"
+  n_segments: 200
+  compactness: 10.0
+
+insertion_deletion:
+  baselines: ["zero", "blur"]    # report BOTH (baseline choice is a known confound)
+  step_fraction: 0.05            # fraction of regions added/removed per step
+
+iou:
+  binarize: "percentile"     # method-agnostic, applied identically to every map
+  percentile: 90
+
+stats:
+  test: "wilcoxon_signed_rank"   # paired, across test images
+  correction: "benjamini_hochberg"
+  ci: "bootstrap"
