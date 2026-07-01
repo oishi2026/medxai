@@ -123,6 +123,8 @@ def main() -> None:
         if "gnn_attention" in methods:
             graph = torch.load(os.path.join(args.graph_dir, f"graph_{i:06d}.pt"),
                                weights_only=False)
+            graph.x = graph.x.float()               # fp16 on disk -> fp32 for GNN
+            graph.edge_attr = graph.edge_attr.float()
             with torch.no_grad():
                 _, alpha = gnn(graph.to(device), return_attention=True)
             imp["gnn_attention"] = alpha.float().cpu().numpy()
