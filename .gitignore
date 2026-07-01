@@ -1,0 +1,13 @@
+# data and heavy artifacts never go in git — they live in Kaggle Datasets
+data/*
+!data/.gitkeep
+outputs/*
+!outputs/.gitkeep
+*.ckpt
+*.pth
+wandb/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.egg-info/
+.DS_Store

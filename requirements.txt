@@ -1,0 +1,12 @@
+# Installed explicitly in the Kaggle launcher AFTER pip install -e .
+# torch / torchvision / numpy / pandas / scikit-image are already on the Kaggle
+# image with matched CUDA — do NOT reinstall them here.
+
+hydra-core>=1.3
+wandb>=0.16
+torch-geometric>=2.5        # GNNs (RAG + GAT/GraphSAGE)
+captum>=0.7                 # IG, DeepLIFT, Guided Backprop
+grad-cam>=1.5              # pytorch-grad-cam (Grad-CAM++ etc.)
+shap>=0.45                 # Shapley explanations (eval on small subset only)
+quantus>=0.5               # standardised faithfulness/robustness metrics
+scikit-multilearn>=0.2     # iterative stratification for multi-label subsets
