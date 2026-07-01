@@ -68,6 +68,8 @@ class RegionGNN(nn.Module):
 
     def forward(self, data, return_attention: bool = False):
         x, ei, batch = data.x, data.edge_index, data.batch
+        if batch is None:                       # single graph, not from a DataLoader
+            batch = x.new_zeros(x.size(0), dtype=torch.long)
         ea = getattr(data, "edge_attr", None)
         for conv in self.convs:
             if self.conv_type == "gat":
